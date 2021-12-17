@@ -1,0 +1,39 @@
+= SmartGit-LFS-Test
+:toc:
+
+= Introduction
+
+This repository test https://git-lfs.github.com/[LFS] on https://www.syntevo.com/smartgit/[SmartGit].
+
+The repository enable LFS support for `*.obj` files defined in `.gitattributes`:
+
+ *.obj filter=lfs diff=lfs merge=lfs -text
+
+Next, there are 2 commits:
+
+- `obj files #1`
+- `obj files #2` 
+
+that stores the 2 versions of obj files.
+
+= Test Environment
+
+- Windows 10 and above
+- SmartGit
+- Make sure `log.workingTreeState=True` in SmartGit's https://smartgit.userecho.com/s/attachments/19994/1/917/e82deff7a86ade874e21b60bd60fd58e.png[Low-level Properties].  This property is `True` by default.
+- 
+
+= Steps to replay SmartGit
+
+1. Clone this repository from SmartGit.
+2. Make sure SmartGit is open in either mode:app-name: 
+  - `Show Working Tree Windows`
+  - `Show Log Windows` + `log.workingTreeState=True`
+3. In the Git working tree, check out commit `obj files #2`
+4. Next, check out commit `obj files #1`, and monitor Windows Task Manager for process `git-lfs.exe` process.  SmartGit will keep launch `git-lfs.exe clean` for each `obj` file.
+
+If Working Tree Windows isn't enable or `log.workingTreeState=False`, the `git-lfs.exe clean` process will not launch.  But once `Working Tree Windows` is opened for the Git repository, the `git-lfs.exe clean` will trigger again.
+
+Try check out `obj files #1` or `obj files #2` few times, the `git-lfs.exe clean` shall trigger too.
+
+A repository that stores a number of LFS object will cause the SmartGit to freeze when `git-lfs.exe clean` happen.
