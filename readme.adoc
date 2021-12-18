@@ -37,3 +37,12 @@ If Working Tree Windows isn't enable or `log.workingTreeState=False`, the `git-l
 Try check out `obj files #1` or `obj files #2` few times, the `git-lfs.exe clean` shall trigger too.
 
 A repository that stores a number of LFS object will cause the SmartGit to freeze when `git-lfs.exe clean` happen.
+
+= Solution
+
+After report the issue to https://groups.google.com/g/smartgit/c/aXztV2BaJjw[SmartGit group].  The issue has https://groups.google.com/g/smartgit/c/aXztV2BaJjw/m/7AORC7hDDAAJ[resolved]:
+
+- Download build 17170 
+- Add this setting to `smartgit.properties` (in the `.settings` directory) before restarting:
+
+ smartgit.status.forceUpdateIndexForLfsRepositories=true
